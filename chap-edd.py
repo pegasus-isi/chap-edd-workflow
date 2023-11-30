@@ -101,7 +101,7 @@ def generate_wf():
     dvl_yaml = File("dvl.yaml")
     rc.add_replica('local', dvl_yaml, os.path.join(input_dir, dvl_yaml.lfn))
     strain_analysis_yaml = File("strain_analysis.yaml")
-    rc.add_replica('local', dvl_yaml, os.path.join(input_dir, strain_analysis_yaml.lfn))
+    rc.add_replica('local', strain_analysis_yaml, os.path.join(input_dir, strain_analysis_yaml.lfn))
 
     # common input data.tar file
     data_tar = File("data.tar")
