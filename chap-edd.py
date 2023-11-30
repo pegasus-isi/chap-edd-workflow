@@ -29,6 +29,8 @@ def generate_wf():
     '''
 
     parser = argparse.ArgumentParser(description="generate a CHAP edd workflow")
+    parser.add_argument('--execution_site', dest='execution_site', default="condorpool", required=False,
+                        help='the site on which you want to run your workflows (condorpool|sge). defaults to condorpool')
     args = parser.parse_args(sys.argv[1:])
     
     wf = Workflow('chap-edd')
@@ -164,7 +166,7 @@ def generate_wf():
         wf.add_site_catalog(sc)
         wf.add_replica_catalog(rc)
         wf.write()
-#        wf.plan(staging_sites={"condorpool": "osn"}, sites=["condorpool"], verbose=5, submit=True)
+        wf.plan( sites=[args.execution_site], verbose=3, submit=True)
     except PegasusClientError as e:
         print(e.output)
 
