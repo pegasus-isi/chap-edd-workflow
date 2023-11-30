@@ -127,10 +127,12 @@ def generate_wf():
         calibrate_detector_job.add_outputs(File(output), stage_out=True)
     wf.add_jobs(diffraction_volume_job)
 
+    # the microstrain_maps job
+    strain_nxs = File("strain.nxs")
     microstrain_maps_job = Job('chap_wrapper', node_label="microstrain_maps")
     microstrain_maps_job.add_args(microstrain_maps_yaml)
     microstrain_maps_job.add_inputs(data_tar, microstrain_maps_yaml, strain_analysis_yaml, ceria_calibrated)
-    microstrain_maps_job.add_outputs(dvl_measured)
+    microstrain_maps_job.add_outputs(strain_nxs)
     for output in ['strain.nxs', 'mca1_strainanalysis_unconstrained_fits.mp4', 'mca1_strainanalysis_fit_mask_hkls.png',
                    'mca1_strainanalysis_material_config.png']:
         microstrain_maps_job.add_outputs(File(output), stage_out=True)
