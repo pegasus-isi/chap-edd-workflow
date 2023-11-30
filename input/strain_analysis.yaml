@@ -1,0 +1,26 @@
+map_config:
+  title: set2_c1-1
+  station: id1a3
+  experiment_type: EDD
+  sample:
+    name: set2_c1-1
+  spec_scans:
+    - spec_file: set2_c1-1/spec.log
+      scan_numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+  independent_dimensions:
+    - label: sample_y
+      data_type: smb_par
+      units: mm
+      name: sampYcp
+flux_file: flux.dft
+detectors:
+  - detector_name: mca1
+    include_bin_ranges: [[736,1529]]
+    hkl_indices: [1,2,3,4]
+    background: quadratic
+    peak_models: gaussian
+    #tth_file: mca1_tth.txt
+materials:
+  - material_name: steel_set
+    sgnum: 229
+    lattice_parameters: 2.86825
