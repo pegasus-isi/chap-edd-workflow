@@ -1,0 +1,16 @@
+config:
+  root: .
+  outputdir: .
+  interactive: false
+  log_level: DEBUG
+  profile: false
+pipeline:
+  # Calibrate detector
+  - common.YAMLReader:
+      filename: ceria_calibration.yaml
+      schema: edd.models.MCACeriaCalibrationConfig
+  - edd.MCACeriaCalibrationProcessor:
+      save_figures: true
+  - common.YAMLWriter:
+      filename: ceria_calibrated.yaml
+      force_overwrite: true

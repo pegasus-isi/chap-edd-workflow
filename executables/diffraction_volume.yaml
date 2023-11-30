@@ -1,0 +1,16 @@
+config:
+  root: .
+  outputdir: .
+  interactive: false
+  log_level: DEBUG
+  profile: false
+pipeline:
+  # Measure diffraction volume length
+  - common.YAMLReader:
+      filename: dvl.yaml
+      schema: edd.models.DiffractionVolumeLengthConfig
+  - edd.DiffractionVolumeLengthProcessor:
+      save_figures: true
+  - common.YAMLWriter:
+      filename: dvl_measured.yaml
+      force_overwrite: true

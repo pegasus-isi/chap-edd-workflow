@@ -1,0 +1,22 @@
+config:
+  root: .
+  outputdir: .
+  interactive: false
+  log_level: DEBUG
+  profile: false
+pipeline:
+  # Get microstrain maps
+  - pipeline.MultiplePipelineItem:
+      items:
+        - common.YAMLReader:
+            filename: ceria_calibrated.yaml
+            schema: edd.models.MCACeriaCalibrationConfig
+        - common.YAMLReader:
+            filename: strain_analysis.yaml
+            schema: edd.models.StrainAnalysisConfig
+  - edd.StrainAnalysisProcessor:
+      save_figures: true
+  - common.NexusWriter:
+      filename: strain.nxs
+      force_overwrite: true
+
