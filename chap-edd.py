@@ -55,6 +55,7 @@ def generate_wf():
                    'chap',
                    Container.SINGULARITY,
                    'http://data.isi.edu/chess/images/chap.sif',
+                   mounts=["{}:/{}/:rw".format(BASE_DIR, BASE_DIR)],
                    image_site="nonlocal"
                 )
     tc.add_containers(container)
