@@ -54,8 +54,8 @@ def generate_wf():
     container = Container(
                    'chap',
                    Container.SINGULARITY,
-                   'file:////nfs/chess/user/kvahi/work/chap-edd-workflow/chap.sif',
-                   image_site="local"
+                   'http://data.isi.edu/chess/images/chap.sif',
+                   image_site="nonlocal"
                 )
     tc.add_containers(container)
 
