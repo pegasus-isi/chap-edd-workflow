@@ -124,7 +124,7 @@ def generate_wf():
     diffraction_volume_job.add_inputs(data_tar, diffraction_volume_yaml, dvl_yaml)
     diffraction_volume_job.add_outputs(dvl_measured)
     for output in ['mca1_dvl.png', 'mca1_dvl_mask.png']:
-        calibrate_detector_job.add_outputs(File(output), stage_out=True)
+        diffraction_volume_job.add_outputs(File(output), stage_out=True)
     wf.add_jobs(diffraction_volume_job)
 
     # the microstrain_maps job
