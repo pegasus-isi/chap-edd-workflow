@@ -72,8 +72,8 @@ def generate_wf():
     sc = SiteCatalog()
 
     # add a local site with an optional job env file to use for compute jobs
-    shared_scratch_dir = "{}/work".format(BASE_DIR)
-    local_storage_dir = "{}/storage".format(BASE_DIR)
+    shared_scratch_dir = "{}/local/scratch".format(BASE_DIR)
+    local_storage_dir = "{}/local/storage".format(BASE_DIR)
     local = Site("local") \
         .add_directories(
         Directory(Directory.SHARED_SCRATCH, shared_scratch_dir)
@@ -83,6 +83,28 @@ def generate_wf():
 
 
     sc.add_sites(local)
+
+    # add a sge site for CHESS SGE Cluster
+    cluster_name = "sge"
+    shared_scratch_dir = "{}/sge/scratch".format(BASE_DIR)
+    local_storage_dir = "{}/sge/storage".format(BASE_DIR)
+    sge = Site(cluster_name) \
+        .add_directories(
+        Directory(Directory.SHARED_SCRATCH, shared_scratch_dir)
+        .add_file_servers(
+            FileServer("file://" + shared_scratch_dir, Operation.ALL))) \
+        .add_condor_profile(grid_resource="batch sge") \
+        .add_pegasus_profile(
+        style="glite",
+        queue="all.q",
+        data_configuration="nonsharedfs",
+        auxillary_local="true",
+        nodes=1,
+        ppn=1,
+        runtime=1800,
+        clusters_num=2
+    )
+    sc.add_sites(sge)
 
     # --- Workflow -----------------------------------------------------
     # track the yaml files for the chess wrapper that are required for each job
