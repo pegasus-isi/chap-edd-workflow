@@ -161,6 +161,9 @@ def generate_wf():
         microstrain_maps_job.add_outputs(File(output), stage_out=True)
     wf.add_jobs(microstrain_maps_job)
 
+    # add dependencies explicitly
+    wf.add_dependency(microstrain_maps_job, parents=[calibrate_detector_job])
+    
     try:
         wf.add_transformation_catalog(tc)
         wf.add_site_catalog(sc)
